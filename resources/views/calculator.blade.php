@@ -67,7 +67,7 @@
     </div>
 
     <br><br>
-    <a href="{{ url('/') }}"><button>⬅ Back to Dashboard</button></a>
+    <a href="{{ route('dashboard') }}">← Back to Dashboard</a>
 
     <script>
         let isDeg = true;

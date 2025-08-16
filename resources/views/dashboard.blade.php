@@ -47,9 +47,11 @@
     <div class="menu-container">
         <a href="/podomoro"><button class="menu-button">Podomoro Timer</button></a>
         <a href="/todo"><button class="menu-button">To Do!</button></a>
-        <a href="/mini-games"><button class="menu-button">Mini Games</button></a>
+        <a id="miniGamesLink" href="/mini-games">
+    <button class="menu-button" id="miniGamesBtn">Mini Games</button>
+</a>
         <a href="/calculator"><button class="menu-button">Scientific Calculator</button></a>
-    </div>
+    </div>   
 
 </body>
 </html>

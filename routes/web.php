@@ -84,6 +84,38 @@ Route::patch('/todo/{id}/toggle', [TodoController::class, 'toggle'])->name('todo
 
 Route::get('/calculator', [App\Http\Controllers\CalculatorController::class, 'index'])->name('calculator');
 
+Route::get('/mini-games', function () {
+    if (!session()->has('user')) {
+        return redirect()->route('login');
+    }
+    return view('mini-games');
+})->name('mini-games');
+
+// Mini Games - Quiz
+Route::get('/mini-games/quiz', function () {
+    if (!session()->has('user')) {
+        return redirect()->route('login');
+    }
+    return view('mini-games.quiz');
+})->name('mini-games.quiz');
+
+// Mini Games - Sudoku
+Route::get('/mini-games/sudoku', function () {
+    if (!session()->has('user')) {
+        return redirect()->route('login');
+    }
+    return view('mini-games.sudoku');
+})->name('mini-games.sudoku');
+
+// Mini Games - Tic Tac Toe
+Route::get('/mini-games/tictactoe', function () {
+    if (!session()->has('user')) {
+        return redirect()->route('login');
+    }
+    return view('mini-games.tictactoe');
+})->name('mini-games.tictactoe');
+
+
 
 
 

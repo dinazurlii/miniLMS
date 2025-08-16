@@ -13,7 +13,7 @@
             margin-top: 50px;
         }
         #timer-display {
-            font-size: 48px;
+            font-size: 42px;
             margin: 20px;
         }
         button {
@@ -27,7 +27,7 @@
 <body>
 
     <h1>Pomodoro Timer</h1>
-    <div id="timer-display">25:00</div>
+    <div id="timer-display">STUDY - 25:00</div>
 
     <div>
         <button id="backBtn">⬅ Back</button>
@@ -46,14 +46,16 @@
             ? parseInt(localStorage.getItem("pomodoro_timeLeft")) 
             : 25 * 60;
         let isPaused = localStorage.getItem("pomodoro_paused") === "true" ? true : false;
+        let isRestMode = localStorage.getItem("pomodoro_isRestMode") === "true" ? true : false;
 
         const display = document.getElementById("timer-display");
         const sound = document.getElementById("timerSound");
 
-        // Simpan waktu tiap detik biar tetap jalan walau pindah halaman
+        // === Simpan state ke localStorage ===
         function saveState() {
             localStorage.setItem("pomodoro_timeLeft", timeLeft);
             localStorage.setItem("pomodoro_paused", isPaused);
+            localStorage.setItem("pomodoro_isRestMode", isRestMode);
         }
 
         document.getElementById("startBtn").onclick = () => {
@@ -72,6 +74,7 @@
         document.getElementById("resetBtn").onclick = () => {
             clearInterval(timer);
             timer = null;
+            isRestMode = false; // reset ke mode belajar
             timeLeft = 25 * 60;
             isPaused = true;
             saveState();
@@ -79,7 +82,6 @@
         };
 
         document.getElementById("backBtn").onclick = () => {
-            // Simulasi kembali ke dashboard (ganti dengan route dashboard kamu)
             window.location.href = "/dashboard"; 
         };
 
@@ -90,22 +92,36 @@
                 if (timeLeft <= 0) {
                     clearInterval(timer);
                     timer = null;
-                    timeLeft = 0;
+
+                    // === Switch mode ===
+                    if (isRestMode) {
+                        // selesai istirahat → kembali ke belajar
+                        timeLeft = 25 * 60;
+                        isRestMode = false;
+                    } else {
+                        // selesai belajar → masuk istirahat
+                        timeLeft = 5 * 60;
+                        isRestMode = true;
+                    }
+
                     saveState();
                     sound.play();
+                    updateDisplay();
+                } else {
+                    updateDisplay();
                 }
-                updateDisplay();
             }
         }
 
         function updateDisplay() {
             let minutes = Math.floor(timeLeft / 60);
             let seconds = timeLeft % 60;
+            let label = isRestMode ? "REST" : "STUDY";
             display.textContent = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                `${label} - ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
 
-        // ===== Picture in Picture =====
+        // === Picture in Picture ===
         const pipVideo = document.getElementById('pip-video');
         let pipCanvas = document.createElement('canvas');
         pipCanvas.width = 300;
@@ -116,9 +132,9 @@
             ctx.fillStyle = "#222";
             ctx.fillRect(0, 0, pipCanvas.width, pipCanvas.height);
             ctx.fillStyle = "#fff";
-            ctx.font = "48px Arial";
+            ctx.font = "36px Arial";
             ctx.textAlign = "center";
-            ctx.fillText(display.textContent, pipCanvas.width / 2, pipCanvas.height / 2 + 15);
+            ctx.fillText(display.textContent, pipCanvas.width / 2, pipCanvas.height / 2 + 10);
         }, 1000);
 
         let pipStream = pipCanvas.captureStream();
@@ -133,7 +149,7 @@
             }
         };
 
-        // Auto start timer kalau sebelumnya belum selesai
+        // === Auto start interval ===
         if (!timer) {
             timer = setInterval(updateTimer, 1000);
         }
