@@ -8,11 +8,14 @@ use App\Models\Todo;
 class TodoController extends Controller
 {
     public function index()
-    {
-        // Ambil semua to-do (kalau belum pakai sistem login)
-        $todos = Todo::all(); 
-        return view('todo', compact('todos'));
-    }
+{
+    $todos = Todo::orderBy('is_done', 'asc')   // yang belum selesai di atas
+                 ->orderBy('created_at', 'desc') // terbaru di atas
+                 ->get();
+
+    return view('todo', compact('todos'));
+}
+
 
     public function store(Request $request)
     {
