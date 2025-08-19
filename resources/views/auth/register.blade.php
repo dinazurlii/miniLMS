@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Task & Tinker - Register</title>
     <style>
         * {
             margin: 0;
@@ -12,15 +12,14 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
             position: relative;
-            overflow: hidden;
         }
 
         body::before {
@@ -31,66 +30,75 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(147, 51, 234, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(72, 187, 120, 0.08) 0%, transparent 50%);
             pointer-events: none;
         }
 
         .register-container {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
             box-shadow: 
-                0 32px 64px rgba(0, 0, 0, 0.12),
-                0 0 0 1px rgba(255, 255, 255, 0.05),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            padding: 48px;
+                0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04),
+                0 0 0 1px rgba(255, 255, 255, 0.3);
+            padding: 40px;
             width: 100%;
             max-width: 420px;
             position: relative;
-            z-index: 1;
+            border: 1px solid rgba(226, 232, 240, 0.8);
         }
 
         .register-header {
             text-align: center;
-            margin-bottom: 36px;
+            margin-bottom: 32px;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
         }
 
         .logo-container {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, #10b981, #3b82f6);
-            border-radius: 16px;
-            margin: 0 auto 20px;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 8px 15px rgba(72, 202, 178, 0.3);
         }
 
-        .register-header h2 {
-            color: #1f2937;
-            font-size: 32px;
+        .brand-text {
+            font-size: 28px;
             font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .register-header p {
-            color: #6b7280;
-            font-size: 16px;
+            color: #64748b;
+            font-size: 15px;
             font-weight: 400;
+            margin-top: 8px;
         }
 
         .error-container {
             background: linear-gradient(135deg, #fef2f2, #fde8e8);
-            border: 1px solid #fecaca;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 24px;
+            border: 1px solid #fca5a5;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
             position: relative;
-            overflow: hidden;
         }
 
         .error-container::before {
@@ -98,33 +106,34 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
+            width: 3px;
             height: 100%;
             background: linear-gradient(to bottom, #ef4444, #dc2626);
+            border-radius: 2px 0 0 2px;
         }
 
         .error-container ul {
             list-style: none;
-            margin-left: 12px;
+            margin-left: 8px;
         }
 
         .error-container li {
             color: #dc2626;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             display: flex;
             align-items: center;
         }
 
         .error-container li::before {
             content: "⚠️";
-            margin-right: 10px;
-            font-size: 16px;
+            margin-right: 8px;
+            font-size: 14px;
         }
 
         .form-group {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             position: relative;
         }
 
@@ -134,7 +143,6 @@
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 8px;
-            letter-spacing: 0.25px;
         }
 
         .input-wrapper {
@@ -143,52 +151,53 @@
 
         .input-icon {
             position: absolute;
-            left: 16px;
+            left: 14px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 18px;
+            font-size: 16px;
             z-index: 2;
+            opacity: 0.6;
         }
 
         .form-input {
             width: 100%;
-            padding: 16px 20px 16px 52px;
-            border: 2px solid #e5e7eb;
-            border-radius: 16px;
-            font-size: 16px;
+            padding: 14px 16px 14px 44px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
             font-weight: 400;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: #ffffff;
-            color: #1f2937;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+            color: #1e293b;
         }
 
         .form-input:focus {
             outline: none;
-            border-color: #10b981;
-            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
-            transform: translateY(-1px);
+            border-color: #48cab2;
+            box-shadow: 0 0 0 3px rgba(72, 202, 178, 0.1);
+            background: rgba(255, 255, 255, 1);
         }
 
         .form-input::placeholder {
-            color: #9ca3af;
+            color: #94a3b8;
             font-weight: 400;
         }
 
         .register-btn {
             width: 100%;
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
             color: white;
             border: none;
-            padding: 18px 24px;
-            border-radius: 16px;
-            font-size: 16px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
-            letter-spacing: 0.25px;
+            box-shadow: 0 8px 20px rgba(72, 202, 178, 0.25);
+            margin-bottom: 16px;
         }
 
         .register-btn::before {
@@ -198,14 +207,14 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: left 0.5s;
         }
 
         .register-btn:hover {
-            background: linear-gradient(135deg, #059669, #047857);
-            transform: translateY(-2px);
-            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #38a169, #20c997);
+            transform: translateY(-1px);
+            box-shadow: 0 12px 25px rgba(72, 202, 178, 0.35);
         }
 
         .register-btn:hover::before {
@@ -218,19 +227,19 @@
 
         .login-link {
             text-align: center;
-            margin-top: 32px;
-            padding-top: 24px;
-            border-top: 1px solid rgba(229, 231, 235, 0.8);
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(226, 232, 240, 0.8);
         }
 
         .login-link p {
-            color: #6b7280;
-            font-size: 15px;
+            color: #64748b;
+            font-size: 14px;
             font-weight: 400;
         }
 
         .login-link a {
-            color: #10b981;
+            color: #48cab2;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -244,27 +253,76 @@
             height: 2px;
             bottom: -2px;
             left: 0;
-            background: linear-gradient(135deg, #10b981, #3b82f6);
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
             transition: width 0.3s ease;
         }
 
         .login-link a:hover {
-            color: #059669;
+            color: #38a169;
         }
 
         .login-link a:hover::after {
             width: 100%;
         }
 
-        /* Animation */
-        .register-container {
-            animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Floating elements for visual interest */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
         }
 
-        @keyframes slideInUp {
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
+            top: 15%;
+            left: 8%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
+            top: 25%;
+            right: 12%;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            bottom: 20%;
+            left: 12%;
+            animation-delay: 4s;
+        }
+
+        .floating-element:nth-child(4) {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            bottom: 10%;
+            right: 8%;
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Animation for container */
+        .register-container {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(40px) scale(0.95);
+                transform: translateY(30px) scale(0.95);
             }
             to {
                 opacity: 1;
@@ -280,20 +338,20 @@
             
             .register-container {
                 padding: 32px 24px;
-                border-radius: 20px;
+                border-radius: 16px;
             }
             
-            .register-header h2 {
-                font-size: 28px;
+            .brand-text {
+                font-size: 24px;
             }
 
             .form-input {
-                padding: 14px 16px 14px 48px;
+                padding: 12px 14px 12px 40px;
                 font-size: 16px;
             }
 
             .register-btn {
-                padding: 16px 20px;
+                padding: 14px 20px;
             }
         }
 
@@ -307,11 +365,18 @@
     </style>
 </head>
 <body>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    
     <div class="register-container">
         <div class="register-header">
-            <div class="logo-container">✨</div>
-            <h2>Create Account</h2>
-            <p>Sign up to get started with your account</p>
+            <div class="brand-section">
+                <div class="logo-container">⚡</div>
+                <div class="brand-text">Task & Tinker</div>
+            </div>
+            <p>Create your account to get started</p>
         </div>
 
         @if ($errors->any())
@@ -336,6 +401,7 @@
                            name="name" 
                            class="form-input" 
                            placeholder="Enter your full name" 
+                           value="{{ old('name') }}"
                            required>
                 </div>
             </div>
@@ -349,6 +415,7 @@
                            name="email" 
                            class="form-input" 
                            placeholder="Enter your email address" 
+                           value="{{ old('email') }}"
                            required>
                 </div>
             </div>
@@ -362,6 +429,19 @@
                            name="password" 
                            class="form-input" 
                            placeholder="Create a strong password" 
+                           required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="input-label" for="password_confirmation">Confirm Password</label>
+                <div class="input-wrapper">
+                    <div class="input-icon">🔐</div>
+                    <input type="password" 
+                           id="password_confirmation" 
+                           name="password_confirmation" 
+                           class="form-input" 
+                           placeholder="Confirm your password" 
                            required>
                 </div>
             </div>

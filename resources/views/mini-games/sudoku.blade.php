@@ -12,8 +12,8 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
@@ -31,27 +31,79 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(120, 119, 198, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 107, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(72, 187, 120, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 30% 80%, rgba(255, 159, 243, 0.05) 0%, transparent 50%);
             pointer-events: none;
         }
 
+        /* Floating decorative elements */
+        .floating-decoration {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.04;
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .floating-decoration:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-decoration:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
+            top: 20%;
+            right: 8%;
+            animation-delay: 2s;
+        }
+
+        .floating-decoration:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
+            bottom: 25%;
+            left: 3%;
+            animation-delay: 4s;
+        }
+
+        .floating-decoration:nth-child(4) {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            bottom: 15%;
+            right: 5%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(180deg); }
+        }
+
         .sudoku-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
             box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.1),
-                0 0 0 1px rgba(255, 255, 255, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                0 20px 25px -5px rgba(0, 0, 0, 0.08),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04),
+                0 0 0 1px rgba(255, 255, 255, 0.3);
             padding: 40px 32px;
             max-width: 600px;
             width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(226, 232, 240, 0.6);
             position: relative;
+            z-index: 1;
             overflow: hidden;
-            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .sudoku-container::before {
@@ -61,8 +113,12 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.8s;
+        }
+
+        .sudoku-container:hover::before {
+            left: 100%;
         }
 
         .sudoku-header {
@@ -72,42 +128,105 @@
 
         .sudoku-badge {
             display: inline-block;
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            color: white;
-            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(139, 92, 246, 0.2);
             border-radius: 50px;
+            padding: 12px 24px;
+            color: #8b5cf6;
             font-size: 14px;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 24px;
             letter-spacing: 0.5px;
-            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 8px 15px rgba(139, 92, 246, 0.1);
         }
 
         h1 {
-            color: #1f2937;
-            font-size: 32px;
+            color: #1e293b;
+            font-size: 48px;
             font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 16px;
         }
 
         .sudoku-icon {
-            font-size: 32px;
+            width: 56px;
+            height: 56px;
             background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
         }
 
         .game-subtitle {
-            color: #6b7280;
-            font-size: 16px;
-            font-weight: 500;
+            color: #64748b;
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+
+        .difficulty-selector {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
             margin-bottom: 24px;
+            flex-wrap: wrap;
+            animation: fadeInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s backwards;
+        }
+
+        .difficulty-btn {
+            padding: 12px 24px;
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            color: #64748b;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .difficulty-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .difficulty-btn:hover {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: rgba(139, 92, 246, 0.5);
+            color: #7c3aed;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .difficulty-btn:hover::before {
+            left: 100%;
+        }
+
+        .difficulty-btn.active {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            border-color: rgba(139, 92, 246, 0.5);
+            color: white;
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
         }
 
         .sudoku-board {
@@ -115,52 +234,94 @@
             grid-template-columns: repeat(9, 32px);
             grid-template-rows: repeat(9, 32px);
             gap: 1px;
-            background: #1f2937;
-            border-radius: 12px;
-            padding: 6px;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border-radius: 16px;
+            padding: 8px;
             margin: 0 auto 32px;
             width: fit-content;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
-            animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s backwards;
+            box-shadow: 
+                0 20px 25px -5px rgba(0, 0, 0, 0.15),
+                0 10px 10px -5px rgba(0, 0, 0, 0.08);
+            animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s backwards;
+            position: relative;
+        }
+
+        .sudoku-board::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.8s;
+            border-radius: 16px;
+        }
+
+        .sudoku-board:hover::before {
+            left: 100%;
         }
 
         .cell {
             width: 32px;
             height: 32px;
             background: rgba(255, 255, 255, 0.95);
-            border: none;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(226, 232, 240, 0.6);
             text-align: center;
             font-size: 16px;
             font-weight: 600;
-            color: #1f2937;
-            border-radius: 4px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #1e293b;
+            border-radius: 8px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             outline: none;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cell::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            transition: left 0.6s;
         }
 
         .cell:focus {
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(139, 92, 246, 0.1);
+            border-color: rgba(139, 92, 246, 0.5);
             box-shadow: 
-                0 0 0 2px rgba(59, 130, 246, 0.5),
-                0 4px 12px rgba(59, 130, 246, 0.2);
-            transform: scale(1.05);
+                0 0 0 2px rgba(139, 92, 246, 0.2),
+                0 8px 20px rgba(139, 92, 246, 0.15);
+            transform: scale(1.08);
+        }
+
+        .cell:focus::before {
+            left: 100%;
         }
 
         .cell:hover:not(:disabled) {
-            background: rgba(59, 130, 246, 0.05);
+            background: rgba(139, 92, 246, 0.05);
+            border-color: rgba(139, 92, 246, 0.3);
             transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.1);
         }
 
         .cell:disabled {
-            background: rgba(229, 231, 235, 0.8);
-            color: #4b5563;
+            background: rgba(248, 250, 252, 0.9);
+            color: #475569;
             font-weight: 700;
+            border-color: rgba(226, 232, 240, 0.8);
         }
 
-        /* 3x3 Grid separators - Updated for precise positioning */
+        /* 3x3 Grid separators - keeping original logic */
         .cell:nth-child(3), .cell:nth-child(6),
         .cell:nth-child(12), .cell:nth-child(15),
         .cell:nth-child(21), .cell:nth-child(24),
@@ -188,6 +349,7 @@
             justify-content: center;
             flex-wrap: wrap;
             margin-bottom: 24px;
+            animation: fadeInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.6s backwards;
         }
 
         .control-btn {
@@ -197,12 +359,15 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             display: flex;
             align-items: center;
             gap: 8px;
+            text-decoration: none;
+            font-family: inherit;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
         }
 
         .control-btn::before {
@@ -221,41 +386,41 @@
         }
 
         .check-btn {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
             color: white;
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 8px 20px rgba(72, 187, 120, 0.3);
         }
 
         .check-btn:hover {
-            background: linear-gradient(135deg, #059669, #047857);
+            background: linear-gradient(135deg, #1dd1a1, #48cab2);
             transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 12px 28px rgba(72, 187, 120, 0.4);
         }
 
         .reset-btn {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
             color: white;
-            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
         }
 
         .reset-btn:hover {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            background: linear-gradient(135deg, #ee5a52, #e74c3c);
             transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(239, 68, 68, 0.4);
+            box-shadow: 0 12px 28px rgba(255, 107, 107, 0.4);
         }
 
         .back-btn {
             background: rgba(107, 114, 128, 0.1);
             backdrop-filter: blur(10px);
-            color: #374151;
+            color: #4b5563;
             border: 1px solid rgba(107, 114, 128, 0.2);
-            text-decoration: none;
         }
 
         .back-btn:hover {
             background: rgba(107, 114, 128, 0.15);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            color: #374151;
         }
 
         .message {
@@ -263,57 +428,34 @@
             font-size: 18px;
             font-weight: 600;
             padding: 16px;
-            border-radius: 12px;
+            border-radius: 16px;
             min-height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
         }
 
         .message.success {
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(72, 187, 120, 0.1);
             color: #059669;
-            border: 1px solid rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(72, 187, 120, 0.2);
+            box-shadow: 0 4px 12px rgba(72, 187, 120, 0.1);
         }
 
         .message.error {
-            background: rgba(239, 68, 68, 0.1);
+            background: rgba(255, 107, 107, 0.1);
             color: #dc2626;
-            border: 1px solid rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.1);
         }
 
         .message.warning {
-            background: rgba(245, 158, 11, 0.1);
-            color: #d97706;
-            border: 1px solid rgba(245, 158, 11, 0.2);
-        }
-
-        .difficulty-selector {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-
-        .difficulty-btn {
-            padding: 8px 20px;
-            border: 2px solid rgba(59, 130, 246, 0.2);
-            border-radius: 50px;
-            background: rgba(255, 255, 255, 0.8);
-            color: #374151;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .difficulty-btn:hover,
-        .difficulty-btn.active {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: rgba(59, 130, 246, 0.5);
-            color: #1d4ed8;
+            background: rgba(255, 159, 243, 0.1);
+            color: #d946ef;
+            border: 1px solid rgba(255, 159, 243, 0.2);
+            box-shadow: 0 4px 12px rgba(255, 159, 243, 0.1);
         }
 
         /* Responsive Design */
@@ -327,9 +469,15 @@
             }
 
             h1 {
-                font-size: 28px;
+                font-size: 36px;
                 flex-direction: column;
-                gap: 8px;
+                gap: 12px;
+            }
+
+            .sudoku-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
             }
 
             .sudoku-board {
@@ -350,7 +498,7 @@
 
             .control-btn {
                 width: 100%;
-                max-width: 200px;
+                max-width: 240px;
                 justify-content: center;
             }
         }
@@ -361,7 +509,7 @@
             }
 
             h1 {
-                font-size: 24px;
+                font-size: 28px;
             }
 
             .sudoku-board {
@@ -382,17 +530,6 @@
         }
 
         /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         @keyframes slideInUp {
             from {
                 opacity: 0;
@@ -404,17 +541,46 @@
             }
         }
 
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         @keyframes pulse {
             0%, 100% {
                 transform: scale(1);
             }
             50% {
-                transform: scale(1.05);
+                transform: scale(1.08);
+                box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.3);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
             }
         }
 
         .cell.highlight {
             animation: pulse 0.6s ease-in-out;
+            background: rgba(139, 92, 246, 0.2);
+        }
+
+        .celebration {
+            animation: bounce 0.6s ease-in-out;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -427,11 +593,17 @@
     </style>
 </head>
 <body>
+    <!-- Floating decorations -->
+    <div class="floating-decoration"></div>
+    <div class="floating-decoration"></div>
+    <div class="floating-decoration"></div>
+    <div class="floating-decoration"></div>
+
     <div class="sudoku-container">
         <div class="sudoku-header">
             <div class="sudoku-badge">🔢 Logic Puzzle</div>
             <h1>
-                <span class="sudoku-icon">🔢</span>
+                <div class="sudoku-icon">🔢</div>
                 Sudoku
             </h1>
             <p class="game-subtitle">Fill the 9×9 grid with numbers 1-9</p>
@@ -618,9 +790,9 @@
                 // Add celebration animation
                 cells.forEach((cell, index) => {
                     setTimeout(() => {
-                        cell.classList.add('highlight');
+                        cell.classList.add('highlight', 'celebration');
                         setTimeout(() => {
-                            cell.classList.remove('highlight');
+                            cell.classList.remove('highlight', 'celebration');
                         }, 600);
                     }, index * 20);
                 });

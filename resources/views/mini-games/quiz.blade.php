@@ -12,8 +12,8 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
@@ -31,27 +31,79 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(120, 119, 198, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 107, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(72, 187, 120, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 30% 80%, rgba(255, 159, 243, 0.05) 0%, transparent 50%);
             pointer-events: none;
         }
 
+        /* Floating decorative elements */
+        .floating-decoration {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.04;
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .floating-decoration:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-decoration:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
+            top: 20%;
+            right: 8%;
+            animation-delay: 2s;
+        }
+
+        .floating-decoration:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
+            bottom: 25%;
+            left: 3%;
+            animation-delay: 4s;
+        }
+
+        .floating-decoration:nth-child(4) {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            bottom: 15%;
+            right: 5%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(180deg); }
+        }
+
         .quiz-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
             box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.1),
-                0 0 0 1px rgba(255, 255, 255, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                0 20px 25px -5px rgba(0, 0, 0, 0.08),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04),
+                0 0 0 1px rgba(255, 255, 255, 0.3);
             padding: 40px 32px;
             max-width: 700px;
             width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(226, 232, 240, 0.6);
             position: relative;
+            z-index: 1;
             overflow: hidden;
-            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .quiz-container::before {
@@ -61,8 +113,12 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.8s;
+        }
+
+        .quiz-container:hover::before {
+            left: 100%;
         }
 
         .quiz-header {
@@ -72,48 +128,55 @@
 
         .quiz-badge {
             display: inline-block;
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: white;
-            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 159, 243, 0.2);
             border-radius: 50px;
+            padding: 12px 24px;
+            color: #ff9ff3;
             font-size: 14px;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 24px;
             letter-spacing: 0.5px;
-            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 8px 15px rgba(255, 159, 243, 0.1);
         }
 
         h1 {
-            color: #1f2937;
-            font-size: 32px;
+            color: #1e293b;
+            font-size: 48px;
             font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 16px;
         }
 
         .quiz-icon {
-            font-size: 32px;
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 159, 243, 0.3);
         }
 
         .level-indicator {
-            color: #6b7280;
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 24px;
+            color: #64748b;
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 16px;
         }
 
         .question {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 600;
-            color: #1f2937;
+            color: #1e293b;
             margin-bottom: 32px;
             line-height: 1.4;
             text-align: center;
@@ -129,18 +192,20 @@
 
         .options button {
             padding: 20px 24px;
-            border: 2px solid rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(226, 232, 240, 0.6);
             border-radius: 16px;
             background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 16px;
             font-weight: 500;
-            color: #374151;
+            color: #1e293b;
             position: relative;
             overflow: hidden;
             text-align: left;
+            font-family: inherit;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
 
         .options button::before {
@@ -150,15 +215,15 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.6s;
         }
 
         .options button:hover {
-            background: rgba(59, 130, 246, 0.05);
-            border-color: rgba(59, 130, 246, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(255, 159, 243, 0.3);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(255, 159, 243, 0.15);
         }
 
         .options button:hover::before {
@@ -166,7 +231,13 @@
         }
 
         .options button:active {
-            transform: translateY(0);
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .options button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none !important;
         }
 
         .result {
@@ -175,24 +246,27 @@
             font-weight: 600;
             margin-bottom: 24px;
             padding: 16px;
-            border-radius: 12px;
+            border-radius: 16px;
             min-height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
         }
 
         .result.success {
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(72, 187, 120, 0.1);
             color: #059669;
-            border: 1px solid rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(72, 187, 120, 0.2);
+            box-shadow: 0 4px 12px rgba(72, 187, 120, 0.1);
         }
 
         .result.error {
-            background: rgba(239, 68, 68, 0.1);
+            background: rgba(255, 107, 107, 0.1);
             color: #dc2626;
-            border: 1px solid rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.1);
         }
 
         .action-buttons {
@@ -209,19 +283,21 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             display: flex;
             align-items: center;
             gap: 8px;
             text-decoration: none;
+            font-family: inherit;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
         }
 
         .next-btn {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
             color: white;
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 8px 20px rgba(72, 187, 120, 0.3);
         }
 
         .next-btn::before {
@@ -236,9 +312,9 @@
         }
 
         .next-btn:hover {
-            background: linear-gradient(135deg, #059669, #047857);
+            background: linear-gradient(135deg, #1dd1a1, #48cab2);
             transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 12px 28px rgba(72, 187, 120, 0.4);
         }
 
         .next-btn:hover::before {
@@ -248,7 +324,7 @@
         .back-btn {
             background: rgba(107, 114, 128, 0.1);
             backdrop-filter: blur(10px);
-            color: #374151;
+            color: #4b5563;
             border: 1px solid rgba(107, 114, 128, 0.2);
         }
 
@@ -256,6 +332,7 @@
             background: rgba(107, 114, 128, 0.15);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            color: #374151;
         }
 
         .completion-screen {
@@ -270,31 +347,36 @@
         }
 
         .completion-title {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 700;
-            color: #1f2937;
+            color: #1e293b;
             margin-bottom: 16px;
+            letter-spacing: -0.5px;
         }
 
         .completion-subtitle {
-            font-size: 16px;
-            color: #6b7280;
+            font-size: 18px;
+            color: #64748b;
             margin-bottom: 32px;
+            line-height: 1.6;
         }
 
         .progress-bar {
-            background: rgba(229, 231, 235, 0.8);
-            border-radius: 8px;
-            height: 8px;
+            background: rgba(226, 232, 240, 0.8);
+            border-radius: 12px;
+            height: 12px;
             margin: 16px 0;
             overflow: hidden;
+            backdrop-filter: blur(5px);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .progress-fill {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
             height: 100%;
-            border-radius: 8px;
+            border-radius: 12px;
             transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(255, 159, 243, 0.3);
         }
 
         /* Responsive Design */
@@ -308,13 +390,19 @@
             }
 
             h1 {
-                font-size: 28px;
+                font-size: 36px;
                 flex-direction: column;
-                gap: 8px;
+                gap: 12px;
+            }
+
+            .quiz-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
             }
 
             .question {
-                font-size: 18px;
+                font-size: 20px;
                 padding: 0 8px;
             }
 
@@ -330,8 +418,12 @@
 
             .next-btn, .back-btn {
                 width: 100%;
-                max-width: 200px;
+                max-width: 240px;
                 justify-content: center;
+            }
+
+            .completion-title {
+                font-size: 28px;
             }
         }
 
@@ -341,23 +433,27 @@
             }
 
             h1 {
-                font-size: 24px;
+                font-size: 28px;
             }
 
             .question {
-                font-size: 16px;
+                font-size: 18px;
+            }
+
+            .completion-title {
+                font-size: 24px;
             }
         }
 
         /* Animations */
-        @keyframes fadeInUp {
+        @keyframes slideInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
@@ -373,6 +469,26 @@
             }
         }
 
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .options button {
+            animation: fadeInLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+        }
+
+        .options button:nth-child(1) { animation-delay: 0.1s; }
+        .options button:nth-child(2) { animation-delay: 0.2s; }
+        .options button:nth-child(3) { animation-delay: 0.3s; }
+        .options button:nth-child(4) { animation-delay: 0.4s; }
+
         @media (prefers-reduced-motion: reduce) {
             * {
                 animation-duration: 0.01ms !important;
@@ -383,11 +499,17 @@
     </style>
 </head>
 <body>
+    <!-- Floating decorations -->
+    <div class="floating-decoration"></div>
+    <div class="floating-decoration"></div>
+    <div class="floating-decoration"></div>
+    <div class="floating-decoration"></div>
+
     <div class="quiz-container">
         <div class="quiz-header">
-            <div class="quiz-badge">🧠 Brain Challenge</div>
+            <div class="quiz-badge">✨ Brain Challenge</div>
             <h1>
-                <span class="quiz-icon">🧠</span>
+                <div class="quiz-icon">🧠</div>
                 Quiz Game
             </h1>
             <div class="level-indicator" id="levelIndicator">Level 1 of 5</div>
@@ -404,9 +526,9 @@
                 <button class="next-btn" id="nextBtn" style="display:none;" onclick="nextQuestion()">
                     <span>Lanjut</span> ➡️
                 </button>
-                <a href="/mini-games" class="back-btn">
-                    ⬅️ <span>Kembali</span>
-                </a>
+                <button class="back-btn" onclick="goBack()">
+                    <span>Back</span>
+                </button>
             </div>
         </div>
     </div>
@@ -441,6 +563,14 @@
         ];
 
         let currentLevel = 0;
+
+        function goBack() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = '/mini-games'; // Change this to your mini-games URL
+            }
+        }
 
         function updateProgress() {
             const progress = ((currentLevel + 1) / quizData.length) * 100;
@@ -480,20 +610,20 @@
             if (answer === q.correct) {
                 resultEl.textContent = "✅ Benar! Jawaban yang tepat.";
                 resultEl.className = "result success";
-                buttonEl.style.background = "rgba(16, 185, 129, 0.2)";
-                buttonEl.style.borderColor = "#10b981";
+                buttonEl.style.background = "rgba(72, 187, 120, 0.2)";
+                buttonEl.style.borderColor = "#48bb78";
                 document.getElementById("nextBtn").style.display = "flex";
             } else {
                 resultEl.textContent = "❌ Salah, coba lagi dengan hati-hati!";
                 resultEl.className = "result error";
-                buttonEl.style.background = "rgba(239, 68, 68, 0.2)";
-                buttonEl.style.borderColor = "#ef4444";
+                buttonEl.style.background = "rgba(255, 107, 107, 0.2)";
+                buttonEl.style.borderColor = "#ff6b6b";
                 
                 // Show correct answer
                 optionButtons.forEach(btn => {
                     if (btn.textContent === q.correct) {
-                        btn.style.background = "rgba(16, 185, 129, 0.2)";
-                        btn.style.borderColor = "#10b981";
+                        btn.style.background = "rgba(72, 187, 120, 0.2)";
+                        btn.style.borderColor = "#48bb78";
                     }
                 });
                 
@@ -521,9 +651,9 @@
                         <h2 class="completion-title">Selamat!</h2>
                         <p class="completion-subtitle">Kamu sudah menyelesaikan semua level quiz dengan baik!</p>
                         <div class="action-buttons">
-                            <a href="/mini-games" class="back-btn">
+                            <button class="back-btn" onclick="goBack()">
                                 🏠 <span>Kembali ke Menu</span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 `;
@@ -531,7 +661,9 @@
         }
 
         // Start the quiz
-        loadQuestion();
+        document.addEventListener('DOMContentLoaded', function() {
+            loadQuestion();
+        });
     </script>
 </body>
 </html>

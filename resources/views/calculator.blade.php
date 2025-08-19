@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scientific Calculator</title>
+    <title>Scientific Calculator - Task & Tinker</title>
     <style>
         * {
             margin: 0;
@@ -12,12 +12,12 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
-            padding: 20px;
+            padding: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -31,27 +31,79 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(120, 119, 198, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 107, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(72, 187, 120, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 30% 80%, rgba(255, 159, 243, 0.05) 0%, transparent 50%);
             pointer-events: none;
         }
 
+        /* Floating decorative elements */
+        .floating-decoration {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.06;
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .floating-decoration:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-decoration:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            top: 25%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .floating-decoration:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
+            bottom: 30%;
+            left: 8%;
+            animation-delay: 4s;
+        }
+
+        .floating-decoration:nth-child(4) {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8787);
+            bottom: 20%;
+            right: 12%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(180deg); }
+        }
+
         .calculator-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
             box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.1),
-                0 0 0 1px rgba(255, 255, 255, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            padding: 32px;
-            max-width: 400px;
+                0 20px 25px -5px rgba(0, 0, 0, 0.08),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04),
+                0 0 0 1px rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            max-width: 380px;
             width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(226, 232, 240, 0.6);
             position: relative;
             overflow: hidden;
-            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
         }
 
         .calculator-container::before {
@@ -61,70 +113,90 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.8s;
+        }
+
+        .calculator-container:hover::before {
+            left: 100%;
         }
 
         .calculator-header {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
 
-        .calc-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            color: white;
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            letter-spacing: 0.5px;
-            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
-        }
-
-        h1 {
-            color: #1f2937;
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
+        .brand-section {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            margin-bottom: 8px;
         }
 
-        .calc-icon {
-            font-size: 24px;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            background-clip: text;
+        .logo-container {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            box-shadow: 0 8px 16px rgba(72, 202, 178, 0.25);
+        }
+
+        .brand-text {
+            font-size: 18px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .calc-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(72, 202, 178, 0.2);
+            border-radius: 50px;
+            padding: 4px 12px;
+            color: #48cab2;
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 12px rgba(72, 202, 178, 0.1);
         }
 
         .display {
             width: 100%;
-            height: 80px;
-            font-size: 28px;
+            height: 60px;
+            font-size: 20px;
             font-weight: 600;
-            color: #1f2937;
+            color: #1e293b;
             text-align: right;
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 16px;
+            margin-bottom: 16px;
             border: none;
-            border-radius: 16px;
-            background: rgba(229, 231, 235, 0.5);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(10px);
-            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 
+                inset 0 2px 4px rgba(0, 0, 0, 0.06),
+                0 0 0 1px rgba(226, 232, 240, 0.5);
             outline: none;
             font-family: 'Monaco', 'Menlo', monospace;
             letter-spacing: 1px;
+            transition: all 0.3s ease;
         }
 
         .display:focus {
             box-shadow: 
-                inset 0 2px 8px rgba(0, 0, 0, 0.1),
-                0 0 0 2px rgba(59, 130, 246, 0.3);
+                inset 0 2px 4px rgba(0, 0, 0, 0.06),
+                0 0 0 2px rgba(72, 202, 178, 0.3);
         }
 
         .button-grid {
@@ -134,18 +206,19 @@
         }
 
         .calc-btn {
-            height: 50px;
+            height: 42px;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
+            border-radius: 10px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(10px);
         }
 
         .calc-btn::before {
@@ -155,7 +228,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.6s;
         }
 
@@ -163,143 +236,151 @@
             left: 100%;
         }
 
-        .calc-btn:active {
-            transform: scale(0.95);
+        .calc-btn:hover {
+            transform: translateY(-2px) scale(1.02);
         }
 
-        /* Number buttons */
+        .calc-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        /* Number buttons - Task & Tinker style */
         .num-btn {
             background: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(229, 231, 235, 0.5);
-            color: #1f2937;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            color: #1e293b;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
         }
 
         .num-btn:hover {
-            background: rgba(59, 130, 246, 0.05);
-            border-color: rgba(59, 130, 246, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(120, 119, 198, 0.3);
+            box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.12);
         }
 
-        /* Operator buttons */
+        /* Operator buttons - Orange gradient like dashboard */
         .op-btn {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
+            background: linear-gradient(135deg, #ff6b6b, #ff8787);
             color: white;
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            box-shadow: 0 8px 15px rgba(255, 107, 107, 0.25);
         }
 
         .op-btn:hover {
-            background: linear-gradient(135deg, #d97706, #b45309);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+            background: linear-gradient(135deg, #ff5252, #ff6b6b);
+            box-shadow: 0 12px 20px rgba(255, 107, 107, 0.35);
         }
 
-        /* Function buttons */
+        /* Function buttons - Purple gradient like dashboard */
         .func-btn {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            font-size: 14px;
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+            font-size: 11px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 15px rgba(102, 126, 234, 0.25);
         }
 
         .func-btn:hover {
-            background: linear-gradient(135deg, #7c3aed, #6d28d9);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4);
+            background: linear-gradient(135deg, #5a67d8, #667eea);
+            box-shadow: 0 12px 20px rgba(102, 126, 234, 0.35);
         }
 
-        /* Clear/Delete buttons */
+        /* Clear/Delete buttons - Pink gradient */
         .clear-btn {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
             color: white;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+            border: 1px solid rgba(255, 159, 243, 0.3);
+            box-shadow: 0 8px 15px rgba(255, 159, 243, 0.25);
         }
 
         .clear-btn:hover {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+            background: linear-gradient(135deg, #f368e0, #e056fd);
+            box-shadow: 0 12px 20px rgba(255, 159, 243, 0.35);
         }
 
-        /* Equal button */
+        /* Equal button - Green gradient like dashboard */
         .equal-btn {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
             color: white;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            border: 1px solid rgba(72, 202, 178, 0.3);
+            box-shadow: 0 8px 15px rgba(72, 202, 178, 0.25);
         }
 
         .equal-btn:hover {
-            background: linear-gradient(135deg, #059669, #047857);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #38b2ac, #48cab2);
+            box-shadow: 0 12px 20px rgba(72, 202, 178, 0.35);
         }
 
         /* Mode button */
         .mode-btn {
-            background: rgba(107, 114, 128, 0.1);
-            border: 1px solid rgba(107, 114, 128, 0.2);
-            color: #374151;
-            font-size: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            color: #64748b;
+            font-size: 10px;
             font-weight: 700;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
         }
 
         .mode-btn:hover {
-            background: rgba(107, 114, 128, 0.15);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+            color: #475569;
         }
 
         .mode-btn.active {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: rgba(59, 130, 246, 0.3);
-            color: #1d4ed8;
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
+            border-color: rgba(72, 202, 178, 0.3);
+            color: white;
+            box-shadow: 0 8px 15px rgba(72, 202, 178, 0.25);
         }
 
         .back-section {
             text-align: center;
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(229, 231, 235, 0.3);
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(226, 232, 240, 0.3);
         }
 
         .back-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background: rgba(107, 114, 128, 0.1);
+            gap: 6px;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
-            color: #374151;
+            color: #64748b;
             text-decoration: none;
-            border-radius: 12px;
-            border: 1px solid rgba(107, 114, 128, 0.2);
+            border-radius: 10px;
+            border: 1px solid rgba(226, 232, 240, 0.6);
             font-weight: 600;
-            font-size: 14px;
+            font-size: 12px;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
         }
 
         .back-btn:hover {
-            background: rgba(107, 114, 128, 0.15);
+            background: rgba(255, 255, 255, 0.95);
             transform: translateY(-2px);
-            color: #1f2937;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: #475569;
+            box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.12);
         }
 
         .history-section {
-            margin-top: 16px;
-            max-height: 120px;
+            margin-top: 12px;
+            max-height: 80px;
             overflow-y: auto;
-            background: rgba(229, 231, 235, 0.3);
-            border-radius: 12px;
-            padding: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 8px;
+            border: 1px solid rgba(226, 232, 240, 0.4);
         }
 
         .history-item {
             font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 12px;
-            color: #6b7280;
+            font-size: 10px;
+            color: #64748b;
             padding: 4px 0;
-            border-bottom: 1px solid rgba(229, 231, 235, 0.3);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
             text-align: right;
         }
 
@@ -310,65 +391,75 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             body {
-                padding: 16px;
+                padding: 8px;
             }
 
             .calculator-container {
-                padding: 24px;
-                max-width: 350px;
+                padding: 16px;
+                max-width: 320px;
             }
 
             .display {
-                font-size: 24px;
-                height: 70px;
-                padding: 16px;
+                font-size: 18px;
+                height: 55px;
+                padding: 12px;
             }
 
             .calc-btn {
-                height: 45px;
-                font-size: 15px;
+                height: 38px;
+                font-size: 12px;
             }
 
             .func-btn {
-                font-size: 12px;
+                font-size: 10px;
+            }
+
+            .brand-text {
+                font-size: 16px;
+            }
+
+            .logo-container {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
             }
         }
 
         @media (max-width: 480px) {
             .calculator-container {
-                padding: 20px;
-                max-width: 320px;
+                padding: 14px;
+                max-width: 300px;
             }
 
             .display {
-                font-size: 20px;
-                height: 60px;
-                padding: 12px;
+                font-size: 16px;
+                height: 50px;
+                padding: 10px;
             }
 
             .calc-btn {
-                height: 40px;
-                font-size: 14px;
-            }
-
-            .func-btn {
+                height: 36px;
                 font-size: 11px;
             }
 
-            h1 {
-                font-size: 20px;
+            .func-btn {
+                font-size: 9px;
+            }
+
+            .brand-text {
+                font-size: 14px;
             }
         }
 
         /* Animations */
-        @keyframes fadeInUp {
+        @keyframes slideInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
@@ -395,7 +486,7 @@
             left: 50%;
             width: 5px;
             height: 5px;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.6);
             border-radius: 50%;
             transform: scale(0);
             animation: ripple 0.6s ease-out;
@@ -412,13 +503,18 @@
     </style>
 </head>
 <body>
+    <div class="floating-decoration"></div>
+    <div class="floating-decoration"></div>
+    <div class="floating-decoration"></div>
+    <div class="floating-decoration"></div>
+    
     <div class="calculator-container">
         <div class="calculator-header">
-            <div class="calc-badge">🔢 Advanced Calculator</div>
-            <h1>
-                <span class="calc-icon">🧮</span>
-                Scientific Calculator
-            </h1>
+            <div class="brand-section">
+                <div class="logo-container">🧮</div>
+                <div class="brand-text">Calculator</div>
+            </div>
+            <div class="calc-badge">✨ Scientific Calculator</div>
         </div>
 
         <input type="text" id="display" class="display" readonly placeholder="0">
@@ -478,8 +574,8 @@
         </div>
 
         <div class="back-section">
-            <a href="/mini-games" class="back-btn">
-                ⬅️ <span>Back to Menu</span>
+            <a href="javascript:history.back()" class="back-btn" onclick="goBackToDashboard()">
+                ← <span>Back to Dashboard</span>
             </a>
         </div>
     </div>
@@ -644,6 +740,17 @@
 
         // Initialize display
         document.getElementById('display').value = '0';
+
+        // Back to dashboard function
+        function goBackToDashboard() {
+            // Try to go back to the previous page (dashboard)
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                // If no history, redirect to dashboard
+                window.location.href = '/dashboard' || '../dashboard' || 'index.html';
+            }
+        }
     </script>
 </body>
 </html>

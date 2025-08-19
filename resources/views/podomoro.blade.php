@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 100%);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
@@ -32,8 +32,10 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 30% 40%, rgba(239, 68, 68, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 70% 60%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(120, 119, 198, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 107, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(72, 187, 120, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 30% 80%, rgba(255, 159, 243, 0.05) 0%, transparent 50%);
             pointer-events: none;
         }
 
@@ -175,50 +177,51 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
             color: white;
-            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.25);
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            background: linear-gradient(135deg, #f59e0b, #d97706);
             transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(239, 68, 68, 0.4);
+            box-shadow: 0 12px 28px rgba(245, 158, 11, 0.35);
         }
 
         .btn-secondary {
-            background: rgba(107, 114, 128, 0.1);
-            color: #4b5563;
-            border: 1px solid rgba(107, 114, 128, 0.2);
+            background: linear-gradient(135deg, #e879f9, #d946ef);
+            color: white;
+            box-shadow: 0 8px 20px rgba(217, 70, 239, 0.25);
         }
 
         .btn-secondary:hover {
-            background: rgba(107, 114, 128, 0.15);
+            background: linear-gradient(135deg, #d946ef, #c026d3);
             transform: translateY(-1px);
+            box-shadow: 0 12px 28px rgba(217, 70, 239, 0.35);
         }
 
         .btn-back {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            background: linear-gradient(135deg, #67e8f9, #22d3ee);
             color: white;
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 20px rgba(34, 211, 238, 0.25);
         }
 
         .btn-back:hover {
-            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
             transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 12px 28px rgba(34, 211, 238, 0.35);
         }
 
         .btn-pip {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            background: linear-gradient(135deg, #86efac, #4ade80);
             color: white;
-            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 8px 20px rgba(74, 222, 128, 0.25);
         }
 
         .btn-pip:hover {
-            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            background: linear-gradient(135deg, #4ade80, #22c55e);
             transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(139, 92, 246, 0.4);
+            box-shadow: 0 12px 28px rgba(74, 222, 128, 0.35);
         }
 
         .btn:active {
@@ -330,7 +333,7 @@
             <button class="btn btn-secondary" id="pauseBtn">Pause</button>
             <button class="btn btn-secondary" id="resetBtn">Reset</button>
             <button class="btn btn-primary" id="startBtn">Start</button>
-            <button class="btn btn-pip" id="pipBtn">📺 PiP</button>
+            <button class="btn btn-pip" id="pipBtn">PiP</button>
         </div>
     </div>
 
@@ -338,154 +341,146 @@
     <video id="pip-video" muted playsinline style="display:none;"></video>
 
     <script>
-        let timer;
-        let timeLeft = localStorage.getItem("pomodoro_timeLeft") 
-            ? parseInt(localStorage.getItem("pomodoro_timeLeft")) 
-            : 25 * 60;
-        let isPaused = localStorage.getItem("pomodoro_paused") === "true" ? true : false;
-        let isRestMode = localStorage.getItem("pomodoro_isRestMode") === "true" ? true : false;
+    let timer;
+    let timeLeft = 25 * 60; // In seconds
+    let isPaused = true;
+    let isRestMode = false;
 
-        const display = document.getElementById("timer-display");
-        const sound = document.getElementById("timerSound");
-        const modeIndicator = document.getElementById("modeIndicator");
-        const timerProgress = document.getElementById("timerProgress");
-        const timerCircle = document.getElementById("timerCircle");
+    const display = document.getElementById("timer-display");
+    const sound = document.getElementById("timerSound");
+    const modeIndicator = document.getElementById("modeIndicator");
+    const timerProgress = document.getElementById("timerProgress");
+    const timerCircle = document.getElementById("timerCircle");
+    const pipVideo = document.getElementById("pip-video"); // ✅ Hanya deklarasi di sini
 
-        // === Simpan state ke localStorage ===
-        function saveState() {
-            localStorage.setItem("pomodoro_timeLeft", timeLeft);
-            localStorage.setItem("pomodoro_paused", isPaused);
-            localStorage.setItem("pomodoro_isRestMode", isRestMode);
+    function updateProgress() {
+        const totalTime = isRestMode ? 5 * 60 : 25 * 60;
+        const progress = ((totalTime - timeLeft) / totalTime) * 360;
+        timerProgress.style.setProperty('--progress', progress + 'deg');
+    }
+
+    document.getElementById("startBtn").onclick = () => {
+        if (isPaused) {
+            isPaused = false;
+            timerCircle.classList.add('active');
+            if (!timer) timer = setInterval(updateTimer, 1000);
         }
+    };
 
-        function updateProgress() {
-            const totalTime = isRestMode ? 5 * 60 : 25 * 60;
-            const progress = ((totalTime - timeLeft) / totalTime) * 360;
-            timerProgress.style.setProperty('--progress', progress + 'deg');
-        }
-
-        document.getElementById("startBtn").onclick = () => {
-            if (isPaused) {
-                isPaused = false;
-                saveState();
-                timerCircle.classList.add('active');
-                if (!timer) timer = setInterval(updateTimer, 1000);
-            }
-        };
-
-        document.getElementById("pauseBtn").onclick = () => {
-            isPaused = !isPaused;
-            if (isPaused) {
-                timerCircle.classList.remove('active');
-            } else {
-                timerCircle.classList.add('active');
-            }
-            saveState();
-        };
-
-        document.getElementById("resetBtn").onclick = () => {
-            clearInterval(timer);
-            timer = null;
-            isRestMode = false;
-            timeLeft = 25 * 60;
-            isPaused = true;
+    document.getElementById("pauseBtn").onclick = () => {
+        isPaused = !isPaused;
+        if (isPaused) {
             timerCircle.classList.remove('active');
-            saveState();
-            updateDisplay();
+        } else {
+            timerCircle.classList.add('active');
+        }
+    };
+
+    document.getElementById("resetBtn").onclick = () => {
+        clearInterval(timer);
+        timer = null;
+        isRestMode = false;
+        timeLeft = 25 * 60;
+        isPaused = true;
+        timerCircle.classList.remove('active');
+        updateDisplay();
+        updateProgress();
+    };
+
+    document.getElementById("backBtn").onclick = () => {
+        // Navigate back to dashboard
+        window.history.back();
+    };
+
+    function updateTimer() {
+        if (!isPaused) {
+            timeLeft--;
             updateProgress();
-        };
-
-        document.getElementById("backBtn").onclick = () => {
-            window.location.href = "/dashboard"; 
-        };
-
-        function updateTimer() {
-            if (!isPaused) {
-                timeLeft--;
-                saveState();
-                updateProgress();
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    timer = null;
-                    timerCircle.classList.remove('active');
-
-                    // === Switch mode ===
-                    if (isRestMode) {
-                        timeLeft = 25 * 60;
-                        isRestMode = false;
-                    } else {
-                        timeLeft = 5 * 60;
-                        isRestMode = true;
-                    }
-
-                    saveState();
-                    sound.play();
-                    updateDisplay();
-                    updateProgress();
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                timer = null;
+                
+                // Switch mode
+                if (isRestMode) {
+                    timeLeft = 25 * 60;
+                    isRestMode = false;
                 } else {
-                    updateDisplay();
+                    timeLeft = 5 * 60;
+                    isRestMode = true;
                 }
-            }
-        }
 
-        function updateDisplay() {
-            let minutes = Math.floor(timeLeft / 60);
-            let seconds = timeLeft % 60;
-            let label = isRestMode ? "REST" : "STUDY";
-            display.textContent = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            
-            modeIndicator.textContent = label;
-            
-            // Update mode styling
-            if (isRestMode) {
-                modeIndicator.classList.add('rest-mode');
-                timerProgress.classList.add('rest-mode');
+                sound.play().catch(() => {}); // Play sound if available
+                updateDisplay();
+                updateProgress();
+                
+                // Auto-start the next timer
+                isPaused = false;
+                timerCircle.classList.add('active');
+                timer = setInterval(updateTimer, 1000);
             } else {
-                modeIndicator.classList.remove('rest-mode');
-                timerProgress.classList.remove('rest-mode');
+                updateDisplay();
             }
         }
+    }
 
-        // === Picture in Picture ===
-        const pipVideo = document.getElementById('pip-video');
-        let pipCanvas = document.createElement('canvas');
-        pipCanvas.width = 300;
-        pipCanvas.height = 150;
-        let ctx = pipCanvas.getContext('2d');
+    function updateDisplay() {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        let label = isRestMode ? "REST" : "STUDY";
+        display.textContent = 
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        modeIndicator.textContent = label;
+        
+        // Update mode styling
+        if (isRestMode) {
+            modeIndicator.classList.add('rest-mode');
+            timerProgress.classList.add('rest-mode');
+        } else {
+            modeIndicator.classList.remove('rest-mode');
+            timerProgress.classList.remove('rest-mode');
+        }
+    }
 
-        setInterval(() => {
-            ctx.fillStyle = "#222";
-            ctx.fillRect(0, 0, pipCanvas.width, pipCanvas.height);
-            ctx.fillStyle = "#fff";
-            ctx.font = "36px Arial";
-            ctx.textAlign = "center";
-            let label = isRestMode ? "REST" : "STUDY";
-            let minutes = Math.floor(timeLeft / 60);
-            let seconds = timeLeft % 60;
-            let timeText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            ctx.fillText(`${label} - ${timeText}`, pipCanvas.width / 2, pipCanvas.height / 2 + 10);
-        }, 1000);
+    // ✅ Picture-in-Picture setup
+    let pipCanvas = document.createElement('canvas');
+    pipCanvas.width = 300;
+    pipCanvas.height = 150;
+    let ctx = pipCanvas.getContext('2d');
 
-        let pipStream = pipCanvas.captureStream();
-        pipVideo.srcObject = pipStream;
+    setInterval(() => {
+        ctx.fillStyle = "#222";
+        ctx.fillRect(0, 0, pipCanvas.width, pipCanvas.height);
+        ctx.fillStyle = "#fff";
+        ctx.font = "36px Arial";
+        ctx.textAlign = "center";
+        let label = isRestMode ? "REST" : "STUDY";
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        let timeText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        ctx.fillText(`${label} - ${timeText}`, pipCanvas.width / 2, pipCanvas.height / 2 + 10);
+    }, 1000);
 
-        document.getElementById('pipBtn').onclick = async () => {
-            await pipVideo.play();
+    let pipStream = pipCanvas.captureStream();
+    pipVideo.srcObject = pipStream;
+
+    document.getElementById('pipBtn').onclick = async () => {
+        try {
+            await pipVideo.play(); // Required before entering PiP
             if (document.pictureInPictureElement) {
                 await document.exitPictureInPicture();
             } else {
                 await pipVideo.requestPictureInPicture();
             }
-        };
-
-        // === Auto start interval ===
-        if (!timer && !isPaused) {
-            timer = setInterval(updateTimer, 1000);
-            timerCircle.classList.add('active');
+        } catch (error) {
+            console.log('Picture-in-Picture not supported or failed:', error);
+            alert('PiP tidak didukung di browser ini atau video gagal dimuat.');
         }
-        updateDisplay();
-        updateProgress();
-    </script>
+    };
+
+    // Initial state
+    updateDisplay();
+    updateProgress();
+</script>
 </body>
 </html>

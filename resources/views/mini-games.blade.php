@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Games</title>
+    <title>Mini Games - Task & Tinker</title>
     <style>
         * {
             margin: 0;
@@ -12,12 +12,15 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
-            padding: 20px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         body::before {
@@ -28,89 +31,157 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(120, 119, 198, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 107, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(72, 187, 120, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 30% 80%, rgba(255, 159, 243, 0.05) 0%, transparent 50%);
             pointer-events: none;
+        }
+
+        /* Floating decorative elements */
+        .floating-decoration {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.06;
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .floating-decoration:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-decoration:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            top: 20%;
+            right: 8%;
+            animation-delay: 2s;
+        }
+
+        .floating-decoration:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8787);
+            bottom: 25%;
+            left: 3%;
+            animation-delay: 4s;
+        }
+
+        .floating-decoration:nth-child(4) {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
+            bottom: 15%;
+            right: 5%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(180deg); }
         }
 
         .games-container-wrapper {
             max-width: 1000px;
-            margin: 0 auto;
+            width: 100%;
             position: relative;
             z-index: 1;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 36px;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .logo-container {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 8px 16px rgba(255, 159, 243, 0.25);
+        }
+
+        .brand-text {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
         }
 
         .header-badge {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 159, 243, 0.2);
             border-radius: 50px;
-            padding: 8px 20px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 24px;
+            padding: 8px 16px;
+            color: #ff9ff3;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
             letter-spacing: 0.5px;
+            box-shadow: 0 6px 12px rgba(255, 159, 243, 0.1);
         }
 
         .header h1 {
-            color: #ffffff;
-            font-size: 48px;
+            color: #1e293b;
+            font-size: 32px;
             font-weight: 700;
-            margin-bottom: 16px;
-            letter-spacing: -1px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-        }
-
-        .header-icon {
-            font-size: 48px;
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 4px 8px rgba(139, 92, 246, 0.3));
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
 
         .subtitle {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 18px;
+            color: #64748b;
+            font-size: 14px;
             font-weight: 400;
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .games-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
         }
 
         .game-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
             box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.1),
-                0 0 0 1px rgba(255, 255, 255, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            padding: 32px 28px;
+                0 12px 16px -4px rgba(0, 0, 0, 0.08),
+                0 4px 6px -2px rgba(0, 0, 0, 0.04),
+                0 0 0 1px rgba(255, 255, 255, 0.3);
+            padding: 24px 20px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(226, 232, 240, 0.6);
             text-align: center;
         }
 
@@ -121,7 +192,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.8s;
         }
 
@@ -130,82 +201,88 @@
         }
 
         .game-card:hover {
-            transform: translateY(-12px) scale(1.03);
+            transform: translateY(-8px) scale(1.02);
             box-shadow: 
-                0 32px 64px rgba(0, 0, 0, 0.15),
-                0 0 0 1px rgba(255, 255, 255, 0.2);
+                0 25px 35px -5px rgba(0, 0, 0, 0.12),
+                0 15px 15px -5px rgba(0, 0, 0, 0.06),
+                0 0 0 1px rgba(255, 255, 255, 0.4);
         }
 
         .game-card:active {
-            transform: translateY(-8px) scale(1.01);
+            transform: translateY(-4px) scale(1.01);
         }
 
         .game-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 36px;
-            margin: 0 auto 24px;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+            font-size: 24px;
+            margin: 0 auto 16px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             position: relative;
         }
 
         .quiz-icon {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
+            background: linear-gradient(135deg, #ff6b6b, #ff8787);
         }
 
         .sudoku-icon {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            background: linear-gradient(135deg, #667eea, #764ba2);
         }
 
         .tictactoe-icon {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
         }
 
         .game-title {
-            color: #1f2937;
-            font-size: 24px;
+            color: #1e293b;
+            font-size: 18px;
             font-weight: 700;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            letter-spacing: -0.25px;
         }
 
         .game-description {
-            color: #6b7280;
-            font-size: 14px;
+            color: #64748b;
+            font-size: 12px;
             font-weight: 400;
-            line-height: 1.6;
-            margin-bottom: 24px;
-            min-height: 40px;
+            line-height: 1.4;
+            margin-bottom: 16px;
+            min-height: 32px;
         }
 
         .game-stats {
             display: flex;
-            gap: 16px;
-            margin-bottom: 24px;
+            gap: 12px;
+            margin-bottom: 20px;
             justify-content: center;
         }
 
         .stat-item {
             text-align: center;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.4);
         }
 
         .stat-number {
-            font-size: 18px;
+            font-size: 14px;
             font-weight: 700;
-            color: #1f2937;
+            color: #1e293b;
             margin-bottom: 2px;
         }
 
         .stat-label {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 500;
-            color: #9ca3af;
+            color: #64748b;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
         }
 
         .game-link {
@@ -215,22 +292,23 @@
 
         .play-btn {
             width: 100%;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
             color: white;
             border: none;
-            padding: 16px 24px;
-            border-radius: 16px;
-            font-size: 16px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 6px 12px rgba(255, 159, 243, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
+            border: 1px solid rgba(255, 159, 243, 0.3);
         }
 
         .play-btn::before {
@@ -240,14 +318,14 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.6s;
         }
 
         .play-btn:hover {
-            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            background: linear-gradient(135deg, #f368e0, #e056fd);
             transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 12px 28px rgba(255, 159, 243, 0.4);
         }
 
         .play-btn:hover::before {
@@ -258,10 +336,44 @@
             transform: translateY(0);
         }
 
+        /* Different button colors for each game */
+        .game-card:nth-child(1) .play-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ff8787);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .game-card:nth-child(1) .play-btn:hover {
+            background: linear-gradient(135deg, #ff5252, #ff6b6b);
+            box-shadow: 0 12px 28px rgba(255, 107, 107, 0.4);
+        }
+
+        .game-card:nth-child(2) .play-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .game-card:nth-child(2) .play-btn:hover {
+            background: linear-gradient(135deg, #5a67d8, #667eea);
+            box-shadow: 0 12px 28px rgba(102, 126, 234, 0.4);
+        }
+
+        .game-card:nth-child(3) .play-btn {
+            background: linear-gradient(135deg, #48cab2, #1dd1a1);
+            box-shadow: 0 8px 20px rgba(72, 202, 178, 0.3);
+            border: 1px solid rgba(72, 202, 178, 0.3);
+        }
+
+        .game-card:nth-child(3) .play-btn:hover {
+            background: linear-gradient(135deg, #38b2ac, #48cab2);
+            box-shadow: 0 12px 28px rgba(72, 202, 178, 0.4);
+        }
+
         .back-section {
             text-align: center;
             padding-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(226, 232, 240, 0.3);
         }
 
         .back-btn {
@@ -269,23 +381,23 @@
             align-items: center;
             gap: 10px;
             padding: 16px 32px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
-            color: rgba(255, 255, 255, 0.9);
+            color: #64748b;
             text-decoration: none;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            border: 1px solid rgba(226, 232, 240, 0.6);
             font-weight: 600;
             font-size: 16px;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
         }
 
         .back-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.95);
             transform: translateY(-2px);
-            color: #ffffff;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+            color: #475569;
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
         }
 
         /* Responsive Design */
@@ -294,14 +406,23 @@
                 padding: 16px;
             }
 
-            .header h1 {
-                font-size: 36px;
+            .brand-section {
                 flex-direction: column;
                 gap: 12px;
             }
 
-            .header-icon {
-                font-size: 40px;
+            .logo-container {
+                width: 56px;
+                height: 56px;
+                font-size: 28px;
+            }
+
+            .brand-text {
+                font-size: 32px;
+            }
+
+            .header h1 {
+                font-size: 36px;
             }
 
             .subtitle {
@@ -333,20 +454,36 @@
                 padding: 14px 24px;
                 font-size: 14px;
             }
+
+            .game-stats {
+                gap: 12px;
+            }
+
+            .stat-item {
+                padding: 8px 12px;
+            }
         }
 
         @media (max-width: 480px) {
+            .brand-text {
+                font-size: 28px;
+            }
+
             .header h1 {
                 font-size: 28px;
             }
 
             .header-badge {
                 font-size: 12px;
-                padding: 6px 16px;
+                padding: 8px 16px;
             }
 
             .game-stats {
-                gap: 12px;
+                gap: 8px;
+            }
+
+            .stat-item {
+                padding: 6px 10px;
             }
         }
 
@@ -395,13 +532,19 @@
     </style>
 </head>
 <body>
+    <div class="floating-decoration"></div>
+    <div class="floating-decoration"></div>
+    <div class="floating-decoration"></div>
+    <div class="floating-decoration"></div>
+    
     <div class="games-container-wrapper">
         <div class="header">
-            <div class="header-badge">🎮 Entertainment Hub</div>
-            <h1>
-                <span class="header-icon">🎮</span>
-                Mini Games
-            </h1>
+            <div class="brand-section">
+                <div class="logo-container">🎮</div>
+                <div class="brand-text">Mini Games</div>
+            </div>
+            <div class="header-badge">✨ Entertainment Hub</div>
+            <h1>Choose Your Game</h1>
             <p class="subtitle">Take a break and enjoy some fun games to refresh your mind</p>
         </div>
 
@@ -471,10 +614,24 @@
         </div>
 
         <div class="back-section">
-            <a href="/dashboard" class="back-btn">
-                ⬅ Back to Dashboard
+            <a href="dashboard" class="back-btn">
+                ← Back to Dashboard
             </a>
         </div>
+        </div>
     </div>
+
+    <script>
+        // Back to dashboard function
+        function goBackToDashboard() {
+            // Try to go back to the previous page (dashboard)
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                // If no history, redirect to dashboard
+                window.location.href = '/dashboard' || '../dashboard' || 'index.html';
+            }
+        }
+    </script>
 </body>
 </html>
